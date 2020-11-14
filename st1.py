@@ -29,7 +29,7 @@ st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data import</h3
 
 # Enter the path here where all the temporary files will be stored
 temp='\\temp.csv'
-os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
+#os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
 path=os.getcwd()
 path=path+temp
 #path=(r"C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit\temp.csv")
