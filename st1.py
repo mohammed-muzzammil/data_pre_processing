@@ -478,7 +478,7 @@ def mail():
             #The subject line
             #The body and the attachments for the mail
             message.attach(MIMEText(mail_content, 'plain'))
-            attach_file_name = 'temp.csv'
+            attach_file_name = path
             attach_file = open(attach_file_name) # Open the file as binary mode
             payload = MIMEBase('application', 'octate-stream')
             payload.set_payload((attach_file).read())
