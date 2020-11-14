@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import xlrd
+import xlsxwriter
 from sklearn.impute import SimpleImputer
 from sklearn.impute import KNNImputer
 import base64
