@@ -259,6 +259,25 @@ def f_mm(df):
 
 
 
+
+
+def f_rs(df):
+    X = df.select_dtypes(include=np.number)
+    median_X = np.median(X)
+    q3=X.quantile(0.75)-X.quantile(0.25)
+    Xrs =(X - np.median(X))/q3
+    st.dataframe(Xrs)
+    st.info("Data to be treated using Feature Scaling : {}".format(list(dict(df.mean()).keys())))
+    st.write('Shape of dataframe (Rows, Columns): ',Xrs.shape)
+    st.write('Data Informations :',Xrs.info())
+    st.write('Data description : ',Xrs.describe())
+    st.line_chart(Xrs)
+    return Xrs
+    
+    
+
+
+
 def maxabs(df):
     X = df.select_dtypes(include=np.number) 
     max_abs_X = np.max(abs(X)) 
@@ -430,7 +449,12 @@ def fso(df):
     elif fs_selection == 'Robust Scalar':
         st.sidebar.write('You selected Robust Scalar')
         if st.sidebar.button('Process rs'):
-            st.sidebar.write('Pressed')
+            df = pd.read_csv(path)
+            df=f_rs(df)
+            df.to_csv(path, index=False)
+            return df
+            
+            
     
     
     
