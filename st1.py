@@ -762,57 +762,57 @@ def file_upload():
 
 def data_export(df):
     
-    try:
+   # try:
         
     
     
         
-        st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data Export</h3>", unsafe_allow_html=True)
-        fd_option=('.Xlsx','.Csv','Oracle','Email')
-        fd_select=st.sidebar.radio('Choose a file type to download',fd_option)
+    st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data Export</h3>", unsafe_allow_html=True)
+    fd_option=('.Xlsx','.Csv','Oracle','Email')
+    fd_select=st.sidebar.radio('Choose a file type to download',fd_option)
 
-        if fd_select == '.Csv':
-            if st.sidebar.button('Download Csv'):
-                df = pd.read_csv(path)
+    if fd_select == '.Csv':
+        if st.sidebar.button('Download Csv'):
+            df = pd.read_csv(path)
 
-                st.sidebar.markdown(get_table_download_link_csv(df), unsafe_allow_html=True)
-                return 0
-
-
-        elif fd_select == '.Xlsx':
-            if st.sidebar.button('Download Xlsx'):
-                df = pd.read_csv(path)
-                st.sidebar.markdown(get_table_download_link_xlsx(df), unsafe_allow_html=True)
-                return 0
+            st.sidebar.markdown(get_table_download_link_csv(df), unsafe_allow_html=True)
+            return 0
 
 
-        elif fd_select == 'Oracle':
-            st.info("Enter Oracle Database information")
-
-            users=st.text_input("Enter Users name ")
-            passwd=st.text_input("Enter Password ", type="password")
-            host=st.text_input("Enter Host Address")
-            port=st.text_input("Enter Port number")
-            table=st.text_input("Enter the name of table to create, if table exist it'll be replaced")
-            if st.button("Connect"):
-                df = pd.read_csv(path)
-                conn = create_engine('oracle+cx_oracle://{}:{}@{}:{}/ORCL'.format(users,passwd,host,port))
-                df.to_sql('{}'.format(table), conn, if_exists='replace')
-                #con_query="{}/{}@{}:{}/ORCL".format(user,passwd,host,port)
-                #con=cx_Oracle.connect(con_query)
-                if conn!=None:
-                    st.info("Connection Established Successfully and Table Inserted")
+    elif fd_select == '.Xlsx':
+        if st.sidebar.button('Download Xlsx'):
+            df = pd.read_csv(path)
+            st.sidebar.markdown(get_table_download_link_xlsx(df), unsafe_allow_html=True)
+            return 0
 
 
+    elif fd_select == 'Oracle':
+        st.info("Enter Oracle Database information")
 
-        elif fd_select == "Email":
-            mail()
+        users=st.text_input("Enter Users name ")
+        passwd=st.text_input("Enter Password ", type="password")
+        host=st.text_input("Enter Host Address")
+        port=st.text_input("Enter Port number")
+        table=st.text_input("Enter the name of table to create, if table exist it'll be replaced")
+        if st.button("Connect"):
+            df = pd.read_csv(path)
+            conn = create_engine('oracle+cx_oracle://{}:{}@{}:{}/ORCL'.format(users,passwd,host,port))
+            df.to_sql('{}'.format(table), conn, if_exists='replace')
+            #con_query="{}/{}@{}:{}/ORCL".format(user,passwd,host,port)
+            #con=cx_Oracle.connect(con_query)
+            if conn!=None:
+                st.info("Connection Established Successfully and Table Inserted")
+
+
+
+    elif fd_select == "Email":
+        mail()
 
 
     
-    except Exception as e:
-        st.write("Oops!", e.__class__, "occurred.")
-        return df
+    #except Exception as e:
+     #   st.write("Oops!", e.__class__, "occurred.")
+      #  return df
 
 # Give main options
 
