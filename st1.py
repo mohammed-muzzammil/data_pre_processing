@@ -619,67 +619,67 @@ def upload_csv(uploaded_file):
     
 def mail():
     
-    try:
+    #try:
         
         
-        mail_content = '''Hello,
-        This is a Data Pre Processed File.
-        Please see the attachmet below .
-        Thank You for using our app
-        '''
+    mail_content = '''Hello,
+    This is a Data Pre Processed File.
+    Please see the attachmet below .
+    Thank You for using our app
+    '''
 
-        #os.chdir(path)
-        #The mail addresses and password
-        file_name='pass.txt'
-        if os.path.exists(file_name):
-            with open('pass.txt', 'r') as file:  
-                sender_pass=file.read()
-                file.close()
+    #os.chdir(path)
+    #The mail addresses and password
+    file_name='pass.txt'
+    if os.path.exists(file_name):
+        with open('pass.txt', 'r') as file:  
+            sender_pass=file.read()
+            file.close()
+
+    else:
+        urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
+        with open('pass.txt', 'r') as file: 
+            sender_pass=file.read()
+            file.close()
+
+    sender_address = 'dpreprocessing@gmail.com'
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    receiver_address = st.text_input("Please Enter The Email Address")
+    if receiver_address:
+        if(re.search(regex,receiver_address)):
+            #Setup the MIME
+            message = MIMEMultipart()
+            message['From'] = sender_address
+            message['To'] = receiver_address
+            message['Subject'] = 'Please see your processed file in attachment'
+            #The subject line
+            #The body and the attachments for the mail
+            message.attach(MIMEText(mail_content, 'plain'))
+            attach_file_name = path
+            attach_file = open(attach_file_name) # Open the file as binary mode
+            payload = MIMEBase('application', 'octate-stream')
+            payload.set_payload((attach_file).read())
+            encoders.encode_base64(payload) #encode the attachment
+            #add payload header with filename
+            payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
+            message.attach(payload)
+            #Create SMTP session for sending the mail
+            session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+            session.starttls() #enable security
+            session.login(sender_address, sender_pass) #login with mail_id and password
+            text = message.as_string()
+            session.sendmail(sender_address, receiver_address, text)
+            session.quit()
+            st.write('Mail Sent Successfully to {}'.format(receiver_address))
 
         else:
-            urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
-            with open('pass.txt', 'r') as file: 
-                sender_pass=file.read()
-                file.close()
-
-        sender_address = 'dpreprocessing@gmail.com'
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        receiver_address = st.text_input("Please Enter The Email Address")
-        if receiver_address:
-            if(re.search(regex,receiver_address)):
-                #Setup the MIME
-                message = MIMEMultipart()
-                message['From'] = sender_address
-                message['To'] = receiver_address
-                message['Subject'] = 'Please see your processed file in attachment'
-                #The subject line
-                #The body and the attachments for the mail
-                message.attach(MIMEText(mail_content, 'plain'))
-                attach_file_name = path
-                attach_file = open(attach_file_name) # Open the file as binary mode
-                payload = MIMEBase('application', 'octate-stream')
-                payload.set_payload((attach_file).read())
-                encoders.encode_base64(payload) #encode the attachment
-                #add payload header with filename
-                payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
-                message.attach(payload)
-                #Create SMTP session for sending the mail
-                session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-                session.starttls() #enable security
-                session.login(sender_address, sender_pass) #login with mail_id and password
-                text = message.as_string()
-                session.sendmail(sender_address, receiver_address, text)
-                session.quit()
-                st.write('Mail Sent Successfully to {}'.format(receiver_address))
-
-            else:
-                st.warning("Please Enter a Valid Email Address")
+            st.warning("Please Enter a Valid Email Address")
 
 
 
-    except Exception as e:
-        st.write("Oops!", e.__class__, "occurred.")
-        return df
+#    except Exception as e:
+ #       st.write("Oops!", e.__class__, "occurred.")
+  #      return df
     
             
             
@@ -837,33 +837,33 @@ def main_option():
 
 def main():
     
-    try:
+  #  try:
         
     
         
-        df=file_upload()
+    df=file_upload()
 
-        m_option = main_option()
+    m_option = main_option()
 
-        if m_option == 'Missing Value Treatment':
+    if m_option == 'Missing Value Treatment':
 
-            df=mvt_options(df)
-
-
-        elif m_option == 'Outlier Treatment':
-
-            outlier_function()
-
-        elif m_option == 'Feature Scaling':
-
-            fso(df)
+        df=mvt_options(df)
 
 
-        data_export(df)
+    elif m_option == 'Outlier Treatment':
 
-    except Exception as e:
-        st.write("Oops!", e.__class__, "occurred.")
-        return df
+        outlier_function()
+
+    elif m_option == 'Feature Scaling':
+
+        fso(df)
+
+
+    data_export(df)
+
+#    except Exception as e:
+ #       st.write("Oops!", e.__class__, "occurred.")
+  #      return df
     
 
 main()
