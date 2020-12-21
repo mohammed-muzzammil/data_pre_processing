@@ -16,6 +16,8 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 from sqlalchemy import types, create_engine
+import urllib.request
+
 
 
 
@@ -32,7 +34,7 @@ st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data import</h3
 
 # Enter the path here where all the temporary files will be stored
 temp='\\temp.csv'
-#os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
+os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
 path=os.getcwd()
 path=path+temp
 #path=(r"C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit\temp.csv")
@@ -616,7 +618,9 @@ def upload_csv(uploaded_file):
     
     
 def mail():
+    
     try:
+        
         
         mail_content = '''Hello,
         This is a Data Pre Processed File.
@@ -626,8 +630,19 @@ def mail():
 
         #os.chdir(path)
         #The mail addresses and password
+        file_name='pass.txt'
+        if os.path.exists(file_name):
+            with open('pass.txt', 'r') as file:  
+                sender_pass=file.read()
+                file.close()
+
+        else:
+            urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
+            with open('pass.txt', 'r') as file: 
+                sender_pass=file.read()
+                file.close()
+
         sender_address = 'dpreprocessing@gmail.com'
-        sender_pass = 'data-process7'
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         receiver_address = st.text_input("Please Enter The Email Address")
         if receiver_address:
@@ -660,14 +675,12 @@ def mail():
             else:
                 st.warning("Please Enter a Valid Email Address")
 
-    
-    
+
+
     except Exception as e:
         st.write("Oops!", e.__class__, "occurred.")
         return df
-            
     
-            
             
             
             
@@ -752,6 +765,7 @@ def data_export(df):
     try:
         
     
+    
         
         st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data Export</h3>", unsafe_allow_html=True)
         fd_option=('.Xlsx','.Csv','Oracle','Email')
@@ -759,11 +773,11 @@ def data_export(df):
 
         if fd_select == '.Csv':
             if st.sidebar.button('Download Csv'):
-
                 df = pd.read_csv(path)
 
                 st.sidebar.markdown(get_table_download_link_csv(df), unsafe_allow_html=True)
                 return 0
+
 
         elif fd_select == '.Xlsx':
             if st.sidebar.button('Download Xlsx'):
@@ -825,6 +839,8 @@ def main():
     
     try:
         
+    
+        
         df=file_upload()
 
         m_option = main_option()
@@ -845,9 +861,10 @@ def main():
 
         data_export(df)
 
-    
     except Exception as e:
         st.write("Oops!", e.__class__, "occurred.")
+        return df
+    
 
 main()
         
