@@ -34,7 +34,7 @@ st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data import</h3
 
 # Enter the path here where all the temporary files will be stored
 temp='\\temp.csv'
-#os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
+os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
 path=os.getcwd()
 path=path+temp
 #path=(r"C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit\temp.csv")
@@ -619,68 +619,68 @@ def upload_csv(uploaded_file):
     
 def mail():
     
-    #try:
+    try:
         
         
-    mail_content = '''Hello,
-    This is a Data Pre Processed File.
-    Please see the attachmet below .
-    Thank You for using our app
-    '''
+        mail_content = '''Hello,
+        This is a Data Pre Processed File.
+        Please see the attachmet below .
+        Thank You for using our app
+        '''
 
-    #os.chdir(path)
-    #The mail addresses and password
-    file_name='pass.txt'
-    if os.path.exists(file_name):
-        with open('pass.txt', 'r') as file:  
-            sender_pass=file.read()
-            file.close()
-
-    else:
-        urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
-        with open('pass.txt', 'r') as file: 
-            sender_pass=file.read()
-            file.close()
-
-    sender_address = 'dpreprocessing@gmail.com'
-    sender_pass='data-process7'
-    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    receiver_address = st.text_input("Please Enter The Email Address")
-    if receiver_address:
-        if(re.search(regex,receiver_address)):
-            #Setup the MIME
-            message = MIMEMultipart()
-            message['From'] = sender_address
-            message['To'] = receiver_address
-            message['Subject'] = 'Please see your processed file in attachment'
-            #The subject line
-            #The body and the attachments for the mail
-            message.attach(MIMEText(mail_content, 'plain'))
-            attach_file_name = path
-            attach_file = open(attach_file_name) # Open the file as binary mode
-            payload = MIMEBase('application', 'octate-stream')
-            payload.set_payload((attach_file).read())
-            encoders.encode_base64(payload) #encode the attachment
-            #add payload header with filename
-            payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
-            message.attach(payload)
-            #Create SMTP session for sending the mail
-            session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
-            session.starttls() #enable security
-            session.login(sender_address, sender_pass) #login with mail_id and password
-            text = message.as_string()
-            session.sendmail(sender_address, receiver_address, text)
-            session.quit()
-            st.write('Mail Sent Successfully to {}'.format(receiver_address))
+        #os.chdir(path)
+        #The mail addresses and password
+        file_name='pass.txt'
+        if os.path.exists(file_name):
+            with open('pass.txt', 'r') as file:  
+                sender_pass=file.read()
+                file.close()
 
         else:
-            st.warning("Please Enter a Valid Email Address")
+            urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
+            with open('pass.txt', 'r') as file: 
+                sender_pass=file.read()
+                file.close()
+
+        sender_address = 'dpreprocessing@gmail.com'
+        st.write(sender_pass)
+        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        receiver_address = st.text_input("Please Enter The Email Address")
+        if receiver_address:
+            if(re.search(regex,receiver_address)):
+                #Setup the MIME
+                message = MIMEMultipart()
+                message['From'] = sender_address
+                message['To'] = receiver_address
+                message['Subject'] = 'Please see your processed file in attachment'
+                #The subject line
+                #The body and the attachments for the mail
+                message.attach(MIMEText(mail_content, 'plain'))
+                attach_file_name = path
+                attach_file = open(attach_file_name) # Open the file as binary mode
+                payload = MIMEBase('application', 'octate-stream')
+                payload.set_payload((attach_file).read())
+                encoders.encode_base64(payload) #encode the attachment
+                #add payload header with filename
+                payload.add_header('Content-Decomposition', 'attachment', filename=attach_file_name)
+                message.attach(payload)
+                #Create SMTP session for sending the mail
+                session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+                session.starttls() #enable security
+                session.login(sender_address, sender_pass) #login with mail_id and password
+                text = message.as_string()
+                session.sendmail(sender_address, receiver_address, text)
+                session.quit()
+                st.write('Mail Sent Successfully to {}'.format(receiver_address))
+
+            else:
+                st.warning("Please Enter a Valid Email Address")
 
 
 
-#    except Exception as e:
- #       st.write("Oops!", e.__class__, "occurred.")
-  #      return df
+    except Exception as e:
+        st.write("Oops!", e.__class__, "occurred.")
+        return df
     
             
             
@@ -763,57 +763,57 @@ def file_upload():
 
 def data_export(df):
     
-   # try:
+    try:
         
     
     
         
-    st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data Export</h3>", unsafe_allow_html=True)
-    fd_option=('.Xlsx','.Csv','Oracle','Email')
-    fd_select=st.sidebar.radio('Choose a file type to download',fd_option)
+        st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data Export</h3>", unsafe_allow_html=True)
+        fd_option=('.Xlsx','.Csv','Oracle','Email')
+        fd_select=st.sidebar.radio('Choose a file type to download',fd_option)
 
-    if fd_select == '.Csv':
-        if st.sidebar.button('Download Csv'):
-            df = pd.read_csv(path)
+        if fd_select == '.Csv':
+            if st.sidebar.button('Download Csv'):
+                df = pd.read_csv(path)
 
-            st.sidebar.markdown(get_table_download_link_csv(df), unsafe_allow_html=True)
-            return 0
-
-
-    elif fd_select == '.Xlsx':
-        if st.sidebar.button('Download Xlsx'):
-            df = pd.read_csv(path)
-            st.sidebar.markdown(get_table_download_link_xlsx(df), unsafe_allow_html=True)
-            return 0
+                st.sidebar.markdown(get_table_download_link_csv(df), unsafe_allow_html=True)
+                return 0
 
 
-    elif fd_select == 'Oracle':
-        st.info("Enter Oracle Database information")
-
-        users=st.text_input("Enter Users name ")
-        passwd=st.text_input("Enter Password ", type="password")
-        host=st.text_input("Enter Host Address")
-        port=st.text_input("Enter Port number")
-        table=st.text_input("Enter the name of table to create, if table exist it'll be replaced")
-        if st.button("Connect"):
-            df = pd.read_csv(path)
-            conn = create_engine('oracle+cx_oracle://{}:{}@{}:{}/ORCL'.format(users,passwd,host,port))
-            df.to_sql('{}'.format(table), conn, if_exists='replace')
-            #con_query="{}/{}@{}:{}/ORCL".format(user,passwd,host,port)
-            #con=cx_Oracle.connect(con_query)
-            if conn!=None:
-                st.info("Connection Established Successfully and Table Inserted")
+        elif fd_select == '.Xlsx':
+            if st.sidebar.button('Download Xlsx'):
+                df = pd.read_csv(path)
+                st.sidebar.markdown(get_table_download_link_xlsx(df), unsafe_allow_html=True)
+                return 0
 
 
+        elif fd_select == 'Oracle':
+            st.info("Enter Oracle Database information")
 
-    elif fd_select == "Email":
-        mail()
+            users=st.text_input("Enter Users name ")
+            passwd=st.text_input("Enter Password ", type="password")
+            host=st.text_input("Enter Host Address")
+            port=st.text_input("Enter Port number")
+            table=st.text_input("Enter the name of table to create, if table exist it'll be replaced")
+            if st.button("Connect"):
+                df = pd.read_csv(path)
+                conn = create_engine('oracle+cx_oracle://{}:{}@{}:{}/ORCL'.format(users,passwd,host,port))
+                df.to_sql('{}'.format(table), conn, if_exists='replace')
+                #con_query="{}/{}@{}:{}/ORCL".format(user,passwd,host,port)
+                #con=cx_Oracle.connect(con_query)
+                if conn!=None:
+                    st.info("Connection Established Successfully and Table Inserted")
+
+
+
+        elif fd_select == "Email":
+            mail()
 
 
     
-    #except Exception as e:
-     #   st.write("Oops!", e.__class__, "occurred.")
-      #  return df
+    except Exception as e:
+        st.write("Oops!", e.__class__, "occurred.")
+        return df
 
 # Give main options
 
@@ -838,33 +838,33 @@ def main_option():
 
 def main():
     
-  #  try:
+    try:
         
     
         
-    df=file_upload()
+        df=file_upload()
 
-    m_option = main_option()
+        m_option = main_option()
 
-    if m_option == 'Missing Value Treatment':
+        if m_option == 'Missing Value Treatment':
 
-        df=mvt_options(df)
-
-
-    elif m_option == 'Outlier Treatment':
-
-        outlier_function()
-
-    elif m_option == 'Feature Scaling':
-
-        fso(df)
+            df=mvt_options(df)
 
 
-    data_export(df)
+        elif m_option == 'Outlier Treatment':
 
-#    except Exception as e:
- #       st.write("Oops!", e.__class__, "occurred.")
-  #      return df
+            outlier_function()
+
+        elif m_option == 'Feature Scaling':
+
+            fso(df)
+
+
+        data_export(df)
+
+    except Exception as e:
+        st.write("Oops!", e.__class__, "occurred.")
+        return df
     
 
 main()
