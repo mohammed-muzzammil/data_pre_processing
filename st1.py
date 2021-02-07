@@ -32,6 +32,22 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 st.markdown("<h1 style='text-align: center; color: Light gray;'>Data Preprocessing App</h1>", unsafe_allow_html=True)
 st.sidebar.markdown("<h3 style='text-align: left; color: black;'>Data import</h3>", unsafe_allow_html=True)
 
+st.markdown(
+"""
+<style>
+.reportview-container {
+    background: url("https://media.giphy.com/media/nIPpfk1KbH27KUvyxH/giphy.gif")
+}
+.sidebar .sidebar-content {
+    background: url("https://media.giphy.com/media/nIPpfk1KbH27KUvyxH/giphy.gif")
+}
+</style>
+""",
+unsafe_allow_html=True
+)
+
+
+
 # Enter the path here where all the temporary files will be stored
 temp='\\temp.csv'
 #os.chdir(r'C:\Users\MOHAMMED MUZZAMMIL\Desktop\streamlit')
