@@ -56,7 +56,7 @@ hide_streamlit_style = """
 	
 	}
 footer:after {
-	content:'Made by Muzzammil'; 
+	content:'Made by Mohammed Muzzammil'; 
 	visibility: visible;
 	display: block;
 	position: relative;
