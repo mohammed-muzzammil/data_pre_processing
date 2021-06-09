@@ -47,6 +47,28 @@ unsafe_allow_html=True
 )
 
 
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {
+	
+	visibility: hidden;
+	
+	}
+footer:after {
+	content:'Made by Muzzammil'; 
+	visibility: visible;
+	display: block;
+	position: relative;
+	#background-color: red;
+	padding: 5px;
+	top: 2px;
+}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+
 
 # Enter the path here where all the temporary files will be stored
 temp='\\temp.csv'
