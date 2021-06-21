@@ -680,6 +680,7 @@ def mail():
                 file.close()
 
         sender_address = 'dpreprocessing@gmail.com'
+	sender_pass = "data-process7"
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         receiver_address = st.text_input("Please Enter The Email Address")
         if receiver_address:
