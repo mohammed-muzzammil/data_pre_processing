@@ -670,15 +670,15 @@ def mail():
         #The mail addresses and password
         #file_name='pass.txt'
         #if os.path.exists(file_name):
-         #   with open('pass.txt', 'r') as file:  
-          #      sender_pass=file.read()
-           #     file.close()
+        #   with open('pass.txt', 'r') as file:  
+        #      sender_pass=file.read()
+        #     file.close()
 
         #else:
-         #   urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
-          #  with open('pass.txt', 'r') as file: 
-           #     sender_pass=file.read()
-            #    file.close()
+        #   urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
+        #  with open('pass.txt', 'r') as file: 
+        #     sender_pass=file.read()
+        #    file.close()
 
         sender_address = 'dpreprocessing@gmail.com'
 	sender_pass="data-process7"
