@@ -668,19 +668,20 @@ def mail():
 
         #os.chdir(path)
         #The mail addresses and password
-        file_name='pass.txt'
-        if os.path.exists(file_name):
-            with open('pass.txt', 'r') as file:  
-                sender_pass=file.read()
-                file.close()
+        #file_name='pass.txt'
+        #if os.path.exists(file_name):
+         #   with open('pass.txt', 'r') as file:  
+          #      sender_pass=file.read()
+           #     file.close()
 
-        else:
-            urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
-            with open('pass.txt', 'r') as file: 
-                sender_pass=file.read()
-                file.close()
+        #else:
+         #   urllib.request.urlretrieve("https://drive.google.com/u/0/uc?id=1tan_wJsUqOtBTJv1lrwpqqJYgdVJY1td&export=download", "pass.txt")
+          #  with open('pass.txt', 'r') as file: 
+           #     sender_pass=file.read()
+            #    file.close()
 
         sender_address = 'dpreprocessing@gmail.com'
+	sender_pass="data-process7"
   
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         receiver_address = st.text_input("Please Enter The Email Address")
