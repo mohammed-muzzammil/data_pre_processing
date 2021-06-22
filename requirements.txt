@@ -5,3 +5,6 @@ xlrd==1.2.0
 pandas==0.25.1
 cx_Oracle==8.0.1
 scikit_learn==0.23.2
+joblib
+numpy
+
